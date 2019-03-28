@@ -142,8 +142,8 @@ def main():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--cityCode', type=str, default='58457', help='City code, like 58457 represents 杭州')
-    parser.add_argument('--cityPinyin', type=str, default='hangzhou', help='City pinyin, like hangzhou represents 杭州')
+    parser.add_argument('--citycode', type=str, default='58457', help='City code, like 58457 represents 杭州')
+    parser.add_argument('--citypinyin', type=str, default='hangzhou', help='City pinyin, like hangzhou represents 杭州')
     parser.add_argument('--month', type=str, default='201901', help='Month information like: 201901')
     parser.add_argument('--range', type=str, default='f', help='Get history weather or weather forecast, h represents history and f for forecast')
     FLAGS, unparsed = parser.parse_known_args()
