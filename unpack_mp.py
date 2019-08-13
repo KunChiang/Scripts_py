@@ -2,6 +2,7 @@
 import argparse
 import multiprocessing as mp
 import os
+import gc
 from itertools import permutations
 
 import rarfile
@@ -50,20 +51,31 @@ for pwd in pwd_dict:
     except:
         pass
 if not unrar_flag:
-    zm = [chr(i) for i in range(33, 127)] # 33~127
-    lgths = range(4, 16)
+    # zm = [chr(i) for i in range(33, 127)] # 33~127
+    zm = [chr(i) for i in range(65, 91)] + [chr(i) for i in range(97, 123)] + [chr(i) for i in range(45, 58)] + ['.']
+    lgths = range(4, 17)
     for i in lgths:
         print("Trying password length:", i)
         pwds = [''.join(list(c)) for c in  permutations(zm, i)]
         print("Search Space:", len(pwds))
+        print("Searching...")
         pool = mp.Pool()
         reslist = pool.map(mp_job, pwds[:searchtimes])
-    pwd = pwds[reslist.index(True)] if True in reslist else ''
+        del pwds, pool
+        gc.collect()
+        if True in reslist:
+            pwd = pwds[reslist.index(True)]
+            unrar_flag = True
+            break
+        else:
+            pwd = ''
+            pass
 
 if unrar_flag:
     pwd_dic_f = open(pwd_dict_file, 'a')
     pwd_dic_f.write(pwd+'\n')
     pwd_dic_f.close()
-
-print("Unrar success if: ", unrar_flag, 'pwd: ', pwd)
+    print("Unpack success! pwd: ", pwd, "savePath: ", targetpath)
+else:
+    print("Unpack Failed!")
 
