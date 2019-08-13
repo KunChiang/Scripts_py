@@ -42,7 +42,7 @@ def main():
     if os.path.exists(pwd_dict_file):
         with open(pwd_dict_file, 'r') as f:
             for l in f:
-                pwd_dict.add(l)
+                pwd_dict.add(l.strip())
     unrar_flag = False
     for pwd in pwd_dict:
         try:
@@ -51,9 +51,14 @@ def main():
         except:
             pass
     if not unrar_flag:
-        unrar_flag, tpwd = search_pwd(file, targetpath)
+        unrar_flag, pwd = search_pwd(file, targetpath)
 
-    print("Unrar success if: ", unrar_flag, 'pwd: ', tpwd)
+    if unrar_flag:
+        pwd_dic_f = open(pwd_dict_file, 'a')
+        pwd_dic_f.write(pwd+'\n')
+        pwd_dic_f.close()
+
+    print("Unrar success if: ", unrar_flag, 'pwd: ', pwd)
 
 
 if __name__ == "__main__":
