@@ -2,7 +2,7 @@
 import rarfile
 import argparse
 import os
-from itertools import combinations
+from itertools import permutations
 from tqdm import tqdm
 
 FLAGS = None
@@ -23,7 +23,7 @@ def search_pwd(file, targetpath, maxsearch=100000):
     zm = [chr(i) for i in range(33, 127)]
     lgths = range(4, 16)
     for i in tqdm(lgths):
-        pwds = [''.join(list(c)) for c in  combinations(zm, i)]
+        pwds = [''.join(list(c)) for c in  permutations(zm, i)]
         for pwd in tqdm(pwds):
             count += 1
             if count >= maxsearch:
