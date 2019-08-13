@@ -50,7 +50,7 @@ for pwd in pwd_dict:
     except:
         pass
 if not unrar_flag:
-    zm = [chr(i) for i in range(110, 127)] # 33~127
+    zm = [chr(i) for i in range(33, 127)] # 33~127
     lgths = range(4, 16)
     for i in lgths:
         print("Trying password length:", i)
