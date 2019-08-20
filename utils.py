@@ -1,5 +1,4 @@
 # encoding = utf-8
-
 import numpy as np
 import pandas as pd
 import chinese_calendar as cc
@@ -40,11 +39,11 @@ def build_date_fea_defult(df, date_col):
     df['is_holiday'] = is_holiday
     df['is_workday'] = is_workday
     return df
-    
-    
+
+
 # build date features of self-defined cats
-def build_date_fea_selfdefine(df, 
-                        date_col, 
+def build_date_fea_selfdefine(df,
+                        date_col,
                         features = ['year', 'month', 'day', 'is_in_lieu', 'is_holiday', 'is_workday']):
     for f in features:
         locals()[f] = []
