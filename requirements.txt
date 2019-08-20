@@ -1,0 +1,7 @@
+bs4 # beautifulsoup for spider
+tqdm # to print process
+rarfile # for rar files
+xgboost # xgboost lib
+snakeviz # to print timeusage; usage: snakeviz **.py
+# or first %load_ext snakeviz then %snakeviz in ipython
+chinesecalendar # chinese holidays
