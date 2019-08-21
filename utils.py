@@ -145,7 +145,7 @@ def tolibsvm(df):
     return cols_dic, line_list
 
 
-def resplit(file, col, sp_old=',', sp_new):
+def resplit(file, col, sp_old, sp_new):
     """csv文件处理,重新设置csv文件的分隔符.
     
     当csv文件读取失败,提示文档中某一行存在更多分隔符时,
@@ -154,7 +154,7 @@ def resplit(file, col, sp_old=',', sp_new):
     Args:
         file: csv文件名.
         col: 内容存在分隔符的列是第几列.
-        sp_old: 原始分隔符,默认值为csv原始默认分隔符:','.
+        sp_old: 原始分隔符,无默认值,csv原始默认分隔符为','.
         sp_new: 新的分隔符,需要区别于原始分隔符.
     
     Returns:
