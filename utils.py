@@ -102,7 +102,7 @@ def build_date_fea_selfdefine(df,
     return df
 
 
-def recode(df, col):
+def recode_col(df, col):
     """ 重新编码某一列.
     
     将一个DataFrame的某一列(字符类型)重新编码为整型id.
@@ -119,6 +119,21 @@ def recode(df, col):
     new_col = [vdic[i] for i in df[col]]
     df[col] = new_col
     return df
+
+def recode_list(line):
+    """ 重新编码一个列表.
+    
+    将一个列表(字符类型)重新编码为整型id.
+    
+    Args:
+        line: 待编码的列表.
+    
+    Returns:
+        new_line: 返回重新编码之后的列表.
+    """
+    vdic = {line[i]:i for i in range(len(line))}
+    new_line = [vdic[i] for i in line]
+    return new_line
 
 
 def tolibsvm(df):
@@ -179,3 +194,5 @@ def resplit(file, col, sp_old, sp_new):
         for nl in new_res:
             f.write(nl)
     return new_file
+
+
