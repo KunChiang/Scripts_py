@@ -5,7 +5,7 @@ import chinese_calendar as cc
 from tqdm import tqdm
 
 
-def _create_empty_list(num):
+def create_empty_list(num):
     """ 创建指定数量的空列表.
     
     用于初始化指定数量的空列表.
@@ -23,7 +23,13 @@ def _create_empty_list(num):
     if num == 1:
         return []
     else:
-        return [], _create_empty_list(num-1)
+        return [], create_empty_list(num-1)
+
+def empty_matrix(m, n):
+	return [[0 for i in n] for j in m]
+
+def sort_dict(adict, by, reverseif):
+	return sorted(adict.items(), key=lambda kv:kv[by], reverse=reverseif)
 
 def build_date_fea_defult(df, date_col):
     """ 构建日期相关特征.
@@ -43,7 +49,7 @@ def build_date_fea_defult(df, date_col):
     """
     year, month, day, dayofyear, \
     dayofweek, daysinmonth, is_leap_year,  \
-    is_in_lieu, is_holiday, is_workday = _create_empty_list(10)
+    is_in_lieu, is_holiday, is_workday = create_empty_list(10)
     for t in df[date_col]:
         t = pd.to_datetime(t)
         year.append(t.year)
@@ -102,7 +108,7 @@ def build_date_fea_selfdefine(df,
     return df
 
 
-def recode_col(df, col):
+def recode_dfcol(df, col):
     """ 重新编码某一列.
     
     将一个DataFrame的某一列(字符类型)重新编码为整型id.
@@ -114,10 +120,7 @@ def recode_col(df, col):
     Returns:
         df: 返回重新编码之后的DataFrame.
     """
-    vunique = df[col].unique()
-    vdic = {vunique[i]:i for i in range(len(vunique))}
-    new_col = [vdic[i] for i in df[col]]
-    df[col] = new_col
+    df[col] = recode_list(df[col].unique())
     return df
 
 def recode_list(line):
