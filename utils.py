@@ -26,10 +26,10 @@ def create_empty_list(num):
         return [], create_empty_list(num-1)
 
 def empty_matrix(m, n):
-	return [[0 for i in n] for j in m]
+    return [[0 for i in n] for j in m]
 
 def sort_dict(adict, by, reverseif):
-	return sorted(adict.items(), key=lambda kv:kv[by], reverse=reverseif)
+    return sorted(adict.items(), key=lambda kv:kv[by], reverse=reverseif)
 
 def build_date_fea_defult(df, date_col):
     """ 构建日期相关特征.
@@ -199,3 +199,25 @@ def resplit(file, col, sp_old, sp_new):
     return new_file
 
 
+def checkna(df):
+    na_rate = dict()
+    leng = len(df)
+    for c in df.columns.values:
+        tmp = df[c].isna().value_counts()
+        print("=="*12)
+        print(tmp)
+        na_rate[c] = tmp[True] / leng if True in tmp.index else 0
+    return na_rate
+
+
+def get_distance(lat1, lng1, lat2, lng2):
+    EARTH_RADIUS = 6378.137 # 地球半径
+    def rad(d):
+        return d * np.math.pi / 180.0
+    radLat1 = rad(lat1)
+    radLat2 = rad(lat2)
+    a = radLat1 - radLat2
+    b = rad(lng1) - rad(lng2)
+    s = 2 * np.math.asin(np.math.sqrt(np.math.pow(np.math.sin(a / 2), 2) + np.math.cos(radLat1) * np.math.cos(radLat2) * np.math.pow(np.math.sin(b / 2), 2)))
+    s = round(s * EARTH_RADIUS, 2)
+    return s
